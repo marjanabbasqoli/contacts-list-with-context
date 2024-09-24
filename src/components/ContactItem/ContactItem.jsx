@@ -1,29 +1,52 @@
 import { FaCheck, FaRegPenToSquare, FaRegTrashCan } from "react-icons/fa6";
 import styles from "./ContactItem.module.scss";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ContactContext } from "../../context/ContactContext";
+import ContactForm from "../ContactForm/ContactForm";
+import Confirm from "../Confirm/Confirm";
 
-function ContactItem({ contact: { id, name, email } }) {
+function ContactItem({
+	contact: { id, name, email },
+	checkedList,
+	setCheckedList,
+	checkButton,
+}) {
 	const { dispatch } = useContext(ContactContext);
+	const [checked, setChecked] = useState(false);
+	const [addButton, setAddButton] = useState(false);
+	const [deleteButton, setDeleteButton] = useState(false);
+
+	const changeHandler = (e, id) => {
+		if (e.target.checked) {
+			setCheckedList([...checkedList, id]);
+		} else {
+			const newList = checkedList.filter((c) => c !== id);
+			setCheckedList(newList);
+		}
+		setChecked(e.target.checked);
+	};
+
+	const confirmHandler = (confirm) => {
+		confirm && dispatch({ type: "DELETE", payload: id });
+		setDeleteButton(false);
+	};
+
+	useEffect(() => {
+		!checkButton && setChecked(false);
+	}, [checkButton]);
+
 	return (
 		<>
 			<div className={styles.checkboxWrapper}>
-				<div className={`${styles.checkbox}`}>
-					{/* <input
+				<div className={`${styles.checkbox} ${checkButton ? styles.show : null}`}>
+					<input
 						type="checkbox"
-						onChange={(e) => {
-							dispatch({ type: "CHECKED", payload: { id, e } });
-							// setChecked((checked) => !checked);
-							// checked = e.target.checked;
-							setCheckedCount((checkedCount) =>
-								e.target.checked ? checkedCount + 1 : checkedCount - 1
-							);
-						}}
-					/> */}
-
-					{/* <div>
+						onChange={(e) => changeHandler(e, id)}
+						checked={checked}
+					/>
+					<div>
 						<FaCheck />
-					</div> */}
+					</div>
 				</div>
 				<div className={styles.oneItem}>
 					<div className={styles.rightBox}>
@@ -37,23 +60,13 @@ function ContactItem({ contact: { id, name, email } }) {
 					</div>
 					{
 						<div className={styles.buttons}>
-							<button
-								onClick={() =>
-									dispatch({
-										type: "EDIT",
-										payload: {
-											id: "2358",
-											name: "مرجان",
-											email: "marjan@hdsd.com",
-										},
-									})
-								}
-							>
+							<button onClick={() => setAddButton(true)}>
 								<FaRegPenToSquare />
 							</button>
 							<button
 								style={{ color: "#e40012" }}
-								onClick={() => dispatch({ type: "DELETE", payload: id })}
+								// onClick={() => dispatch({ type: "DELETE", payload: id })}
+								onClick={() => setDeleteButton(true)}
 							>
 								<FaRegTrashCan />
 							</button>
@@ -61,6 +74,14 @@ function ContactItem({ contact: { id, name, email } }) {
 					}
 				</div>
 			</div>
+
+			{addButton && (
+				<ContactForm type="edit" setAddButton={setAddButton} id={id} />
+			)}
+
+			{deleteButton && (
+				<Confirm title="آیا مخاطب حذف شود؟" confirmHandler={confirmHandler} />
+			)}
 		</>
 	);
 }

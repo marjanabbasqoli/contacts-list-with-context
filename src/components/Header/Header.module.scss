@@ -1,0 +1,49 @@
+.bg {
+	background: #fff;
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+}
+
+.buttonsWrap {
+	display: flex;
+	align-items: center;
+
+	button {
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		border: none;
+		border-radius: 5px;
+		font-size: 20px;
+		box-sizing: border-box;
+		cursor: pointer;
+
+		&:not(:last-child) {
+			margin-inline-end: 10px;
+		}
+
+		&:first-child {
+			background: #695db5;
+			color: white;
+		}
+
+		&:last-child {
+			border: 1px solid #d9e1ea;
+			background: white;
+			color: #b4c4d6;
+		}
+	}
+}
+
+.flexBox {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.leftBox {
+	display: flex;
+	align-items: center;
+}

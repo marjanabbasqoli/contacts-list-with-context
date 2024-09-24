@@ -11,6 +11,10 @@ function ContactsList() {
 		dispatch,
 	} = useContext(ContactContext);
 
+	const [checkedList, setCheckedList] = useState([]);
+	const [checkButton, setCheckButton] = useState(false);
+	const [deleteCheckedButton, setDeleteCheckedButton] = useState(false);
+
 	useEffect(() => {
 		axios
 			.get("http://localhost:3000/contacts")
@@ -18,11 +22,15 @@ function ContactsList() {
 			.catch((error) => dispatch({ type: "FAILED", payload: error.message }));
 	}, []);
 
-	// console.log(contacts);
-
 	return (
 		<div>
-			<Header />
+			<Header
+				checkedList={checkedList}
+				setCheckedList={setCheckedList}
+				setCheckButton={setCheckButton}
+				deleteCheckedButton={deleteCheckedButton}
+				setDeleteCheckedButton={setDeleteCheckedButton}
+			/>
 			<div className="container">
 				<div className={styles.contactsList}>
 					{isLoading ? (
@@ -35,21 +43,28 @@ function ContactsList() {
 								<div className={styles.noItem}>مخاطبی یافت نشد</div>
 							) : (
 								contacts.map((contact) => (
-									<ContactItem key={contact.id} contact={contact} />
+									<ContactItem
+										key={contact.id}
+										contact={contact}
+										checkedList={checkedList}
+										setCheckedList={setCheckedList}
+										checkButton={checkButton}
+									/>
 								))
 							)}
 						</div>
 					)}
 				</div>
-			</div>
 
-			<button
-				onClick={() =>
-					dispatch({ type: "DELETE_CHECKED", payload: ["101220", "111507"] })
-				}
-			>
-				delete checked
-			</button>
+				{!!checkedList.length && (
+					<button
+						onClick={() => setDeleteCheckedButton(true)}
+						className={styles.deleteAll}
+					>
+						حذف همه
+					</button>
+				)}
+			</div>
 		</div>
 	);
 }

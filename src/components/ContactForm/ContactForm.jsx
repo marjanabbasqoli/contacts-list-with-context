@@ -101,10 +101,10 @@ function ContactForm({ type, id, setAddButton }) {
 				});
 				toast.success("مخاطب با موفقیت افزوده شد");
 			} else {
-				// dispatch({
-				// 	type: "EDIT",
-				// 	payload: form,
-				// });
+				dispatch({
+					type: "EDIT",
+					payload: form,
+				});
 				toast.success("مخاطب با موفقیت ویرایش شد");
 			}
 		}
