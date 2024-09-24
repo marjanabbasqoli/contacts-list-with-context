@@ -1,0 +1,59 @@
+.buttonsWrap {
+	display: flex;
+	justify-content: center;
+	margin-top: 15px;
+
+	> *:not(:last-child) {
+		margin-inline-end: 10px;
+	}
+
+	button {
+		height: 40px;
+		min-width: 100px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: none;
+		color: white;
+		font-size: 1rem;
+		border-radius: 5px;
+		font-family: yekan;
+		cursor: pointer;
+
+		&:first-child {
+			background: green;
+		}
+
+		&:last-child {
+			background: red;
+		}
+	}
+}
+
+.wrapper {
+	position: fixed;
+	background: rgba(0, 0, 0, 0.1);
+	right: 0;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.3s;
+	padding: 15px;
+	min-height: 395px;
+	backdrop-filter: blur(10px);
+}
+
+.container {
+	background: white;
+	width: 700px;
+	max-width: 100%;
+	border-radius: 7px;
+	transition: all 0.3s;
+	transform: translateY(15px);
+	padding: 20px;
+	text-align: center;
+}
