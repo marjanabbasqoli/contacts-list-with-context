@@ -1,9 +1,9 @@
 import { createContext, useReducer } from "react";
 import axios from "axios";
 
-export const ContactContext = createContext();
+import { BASE_URL } from "../constansts/Inputs";
 
-const BASE_URL = "http://localhost:3000/contacts";
+export const ContactContext = createContext();
 
 const initialState = {
 	isLoading: true,
@@ -14,7 +14,6 @@ const initialState = {
 const reducer = (state, action) => {
 	switch (action.type) {
 		case "SUCCESS": {
-			// contactsData = [...action.payload];
 			return { isLoading: false, contacts: action.payload, error: "" };
 		}
 
@@ -57,6 +56,17 @@ const reducer = (state, action) => {
 			);
 
 			return { ...state, contacts: [...checkedContacts] };
+		case "SEARCH":
+			const { search, data } = action.payload;
+			const searchedContacts = data.filter(
+				(contact) =>
+					contact.name.toLowerCase().trim().includes(search) ||
+					contact.email.toLowerCase().trim().includes(search)
+			);
+			return {
+				...state,
+				contacts: [...searchedContacts],
+			};
 	}
 };
 

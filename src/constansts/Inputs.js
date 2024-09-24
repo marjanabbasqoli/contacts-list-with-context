@@ -1,3 +1,5 @@
+const BASE_URL = "http://localhost:3000/contacts";
+
 const Inputs = [
 	{ name: "name", placeholder: "نام", type: "text" },
 	{ name: "email", placeholder: "ایمیل", type: "email" },
@@ -5,4 +7,4 @@ const Inputs = [
 	{ name: "job", placeholder: "تخصص", type: "text" },
 ];
 
-export { Inputs };
+export { Inputs, BASE_URL };
