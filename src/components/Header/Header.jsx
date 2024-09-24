@@ -4,11 +4,13 @@ import ContactForm from "../ContactForm/ContactForm";
 import styles from "./Header.module.scss";
 import ContactsChecked from "../ContactsChecked/ContactsChecked";
 import { FaUserMinus, FaUserPlus } from "react-icons/fa6";
+import Search from "../Search/Search";
 
 function Header({
 	checkedList,
 	setCheckedList,
 	setCheckButton,
+	checkButton,
 	deleteCheckedButton,
 	setDeleteCheckedButton,
 }) {
@@ -22,14 +24,19 @@ function Header({
 						<h1>لیست مخاطبین</h1>
 
 						<div className={styles.leftBox}>
-							{/* <Search /> */}
+							<Search />
 
 							<div className={styles.buttonsWrap}>
 								<button onClick={() => setAddButton(true)}>
 									<FaUserPlus />
 								</button>
 
-								<button onClick={() => setCheckButton((checkButton) => !checkButton)}>
+								<button
+									onClick={() => {
+										setCheckButton((checkButton) => !checkButton);
+										!checkButton && setCheckedList([]);
+									}}
+								>
 									<FaUserMinus />
 								</button>
 							</div>

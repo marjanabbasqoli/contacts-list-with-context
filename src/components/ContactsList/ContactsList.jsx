@@ -27,6 +27,7 @@ function ContactsList() {
 			<Header
 				checkedList={checkedList}
 				setCheckedList={setCheckedList}
+				checkButton={checkButton}
 				setCheckButton={setCheckButton}
 				deleteCheckedButton={deleteCheckedButton}
 				setDeleteCheckedButton={setDeleteCheckedButton}
@@ -56,7 +57,7 @@ function ContactsList() {
 					)}
 				</div>
 
-				{!!checkedList.length && (
+				{!!checkedList.length && checkButton && (
 					<button
 						onClick={() => setDeleteCheckedButton(true)}
 						className={styles.deleteAll}
