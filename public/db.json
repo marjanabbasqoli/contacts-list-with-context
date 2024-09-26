@@ -1,36 +1,3 @@
 {
-  "contacts": [
-    {
-      "id": "23355",
-      "name": "مرجان عباسقلی دولابی",
-      "email": "mae@yahoo.com",
-      "phone": "09123499312",
-      "job": "",
-      "isChecked": false
-    },
-    {
-      "id": "5380",
-      "name": "رضا صادر",
-      "email": "abbasqolimarjan@gmail.com",
-      "phone": "09123499312",
-      "job": "",
-      "isChecked": false
-    },
-    {
-      "id": "10169",
-      "name": "فاطمه سرپولکی",
-      "email": "abbasgholi@netwarestudio.com",
-      "phone": "09123499312",
-      "job": "",
-      "isChecked": false
-    },
-    {
-      "id": "60",
-      "name": "مرجان عباسقلی",
-      "email": "mae@yahoo.com",
-      "phone": "09123499312",
-      "job": "",
-      "isChecked": false
-    }
-  ]
+	"contacts": []
 }

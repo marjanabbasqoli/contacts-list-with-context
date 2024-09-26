@@ -35,9 +35,9 @@ function ContactsList() {
 			<div className="container">
 				<div className={styles.contactsList}>
 					{isLoading ? (
-						<div>...loading</div>
+						<div className={styles.loading}>...loading</div>
 					) : error ? (
-						<div>{error}</div>
+						<div className={styles.error}>{error}</div>
 					) : (
 						<div>
 							{!contacts.length ? (
