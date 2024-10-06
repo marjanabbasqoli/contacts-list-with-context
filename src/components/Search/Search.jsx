@@ -1,36 +1,29 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import { ContactContext } from "../../context/ContactContext";
-import { BASE_URL } from "../../constansts/Inputs";
 
 import styles from "./Search.module.scss";
 
-function Search() {
+function Search({ setDisplayed }) {
 	const [search, setSearch] = useState("");
-	const [contactsData, setContactsData] = useState([]);
-
 	const {
 		state: { contacts },
-		dispatch,
 	} = useContext(ContactContext);
 
-	useEffect(() => {
-		axios
-			.get(BASE_URL)
-			.then((res) => setContactsData(res.data))
-			.catch((error) => console.log(error));
-	}, [contacts]);
+	const searchHanlder = () => {
+		const searchedContacts = contacts.filter(
+			(contact) =>
+				contact.name.toLowerCase().trim().includes(search) ||
+				contact.email.toLowerCase().trim().includes(search)
+		);
+
+		setDisplayed(searchedContacts);
+	};
 
 	return (
 		<input
 			type="search"
-			onKeyUp={() =>
-				dispatch({
-					type: "SEARCH",
-					payload: { search: search.toLowerCase().trim(), data: contactsData },
-				})
-			}
+			onKeyUp={searchHanlder}
 			placeholder="جستجو ..."
 			value={search}
 			onChange={(e) => setSearch(e.target.value)}

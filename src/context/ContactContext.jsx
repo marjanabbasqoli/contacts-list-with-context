@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import axios from "axios";
 
 import { BASE_URL } from "../constansts/Inputs";
@@ -56,22 +56,21 @@ const reducer = (state, action) => {
 			);
 
 			return { ...state, contacts: [...checkedContacts] };
-		case "SEARCH":
-			const { search, data } = action.payload;
-			const searchedContacts = data.filter(
-				(contact) =>
-					contact.name.toLowerCase().trim().includes(search) ||
-					contact.email.toLowerCase().trim().includes(search)
-			);
-			return {
-				...state,
-				contacts: [...searchedContacts],
-			};
+
+		default:
+			throw new Error("invalid actions");
 	}
 };
 
 function ContactProvider({ children }) {
 	const [state, dispatch] = useReducer(reducer, initialState);
+
+	useEffect(() => {
+		axios
+			.get(BASE_URL)
+			.then((res) => dispatch({ type: "SUCCESS", payload: res.data }))
+			.catch((error) => dispatch({ type: "FAILED", payload: error.message }));
+	}, []);
 
 	return (
 		<ContactContext.Provider value={{ state, dispatch }}>

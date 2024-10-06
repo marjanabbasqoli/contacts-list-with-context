@@ -6,21 +6,17 @@ import styles from "./ContactsList.module.scss";
 import Header from "../Header/Header";
 
 function ContactsList() {
-	const {
-		state: { isLoading, contacts, error },
-		dispatch,
-	} = useContext(ContactContext);
+	const { state } = useContext(ContactContext);
+	const { isLoading, contacts, error } = state;
+	const [displayed, setDisplayed] = useState([]);
 
 	const [checkedList, setCheckedList] = useState([]);
 	const [checkButton, setCheckButton] = useState(false);
 	const [deleteCheckedButton, setDeleteCheckedButton] = useState(false);
 
 	useEffect(() => {
-		axios
-			.get("http://localhost:3000/contacts")
-			.then((res) => dispatch({ type: "SUCCESS", payload: res.data }))
-			.catch((error) => dispatch({ type: "FAILED", payload: error.message }));
-	}, []);
+		setDisplayed(contacts);
+	}, [contacts]);
 
 	return (
 		<div>
@@ -31,6 +27,7 @@ function ContactsList() {
 				setCheckButton={setCheckButton}
 				deleteCheckedButton={deleteCheckedButton}
 				setDeleteCheckedButton={setDeleteCheckedButton}
+				setDisplayed={setDisplayed}
 			/>
 			<div className="container">
 				<div className={styles.contactsList}>
@@ -40,10 +37,10 @@ function ContactsList() {
 						<div className={styles.error}>{error}</div>
 					) : (
 						<div>
-							{!contacts.length ? (
+							{!displayed.length ? (
 								<div className={styles.noItem}>مخاطبی یافت نشد</div>
 							) : (
-								contacts.map((contact) => (
+								displayed.map((contact) => (
 									<ContactItem
 										key={contact.id}
 										contact={contact}

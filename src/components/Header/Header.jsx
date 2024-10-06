@@ -13,6 +13,7 @@ function Header({
 	checkButton,
 	deleteCheckedButton,
 	setDeleteCheckedButton,
+	setDisplayed,
 }) {
 	const [addButton, setAddButton] = useState(false);
 
@@ -24,7 +25,7 @@ function Header({
 						<h1>لیست مخاطبین</h1>
 
 						<div className={styles.leftBox}>
-							<Search />
+							<Search setDisplayed={setDisplayed} />
 
 							<div className={styles.buttonsWrap}>
 								<button onClick={() => setAddButton(true)}>
@@ -44,15 +45,6 @@ function Header({
 					</div>
 				</div>
 			</div>
-			{/* <button onClick={() => setAddButton(true)}>add</button>
-			<button
-				// onClick={() =>
-				// 	dispatch({ type: "DELETE_CHECKED", payload: ["101220", "111507"] })
-				// }
-				onClick={() => setCheckButton((checkButton) => !checkButton)}
-			>
-				delete checked
-			</button> */}
 
 			{addButton && <ContactForm type="add" setAddButton={setAddButton} />}
 			{deleteCheckedButton && (
